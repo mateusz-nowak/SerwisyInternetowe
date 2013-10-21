@@ -10,7 +10,7 @@ $container = new DependencyContainer();
 
 $app->get('/', function() use ($container) {
     $template = $container->get('template');
-    
+
     return $template->render('src/BlogBundle/views/main/index.html', array(
         'title' => 'Hello world!'
     ));

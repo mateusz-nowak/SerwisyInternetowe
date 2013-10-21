@@ -8,13 +8,13 @@ class DependencyContainer
 {
     /* @var array $container */
     protected $container;
-    
+
     public function __construct()
     {
         $this->container = array();
         $this->shareContainers();
     }
-    
+
     public function get($containerName)
     {
         if (!array_key_exists($containerName, $this->container)) {
@@ -28,7 +28,7 @@ class DependencyContainer
     {
         $this->shareContainer('template', new Template());
     }
-    
+
     protected function shareContainer($containerName, $closure)
     {
         $this->container[$containerName] = $closure;
