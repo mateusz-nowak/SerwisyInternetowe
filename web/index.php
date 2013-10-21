@@ -16,4 +16,12 @@ $app->get('/', function() use ($container) {
     ));
 });
 
+$app->get('/user/new', function() use ($container) {
+    $template = $container->get('template');
+
+    return $template->render('src/BlogBundle/views/user/new.html', array(
+        'title' => 'Rejestracja'
+    ));
+});
+
 $app->run();
