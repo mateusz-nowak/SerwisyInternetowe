@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "73c7f4b9db8e7f3e7aae33bcc39b40a7",
+    "hash": "d2deff308940c6f807a93f71e33d80ee",
     "packages": [
         {
             "name": "matix/core-bundle",

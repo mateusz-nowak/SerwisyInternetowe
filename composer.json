@@ -13,7 +13,7 @@
                 "name": "matix/core-bundle",
                 "version": "dev-master",
                 "source": {
-                    "url": "git@bitbucket.org:mateusznowak/corebundle.git",
+                    "url": "https://mateusznowak@bitbucket.org/mateusznowak/corebundle.git",
                     "type": "git",
                     "reference": "master"
                 },
@@ -26,7 +26,7 @@
                 "name": "matix/form-bundle",
                 "version": "dev-master",
                 "source": {
-                    "url": "git@bitbucket.org:mateusznowak/formbundle.git",
+                    "url": "https://mateusznowak@bitbucket.org/mateusznowak/formbundle.git",
                     "type": "git",
                     "reference": "master"
                 },
@@ -39,7 +39,7 @@
                 "name": "matix/pdo-bundle",
                 "version": "dev-master",
                 "source": {
-                    "url": "git@bitbucket.org:mateusznowak/pdobundle.git",
+                    "url": "https://mateusznowak@bitbucket.org/mateusznowak/pdobundle.git",
                     "type": "git",
                     "reference": "master"
                 },
