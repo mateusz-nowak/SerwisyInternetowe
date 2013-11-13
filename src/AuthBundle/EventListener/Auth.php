@@ -18,12 +18,12 @@ class Auth extends ContainerAware
             EventAuth::CHECK_AUTHENTICATION => array($this, 'checkAuthEvent')
         );
     }
-    
+
     public function checkAuthEvent()
     {
         $securityContext = $this->getContainer()->get('security.context');
         $request = $this->getContainer()->get('request');
-        
+
         if (FALSE === $securityContext->getUser()) {
             return $request->redirect('/session/new');
         }
