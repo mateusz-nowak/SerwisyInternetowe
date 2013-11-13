@@ -3,8 +3,44 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ec6ac7ff649ef3635373bae5c6744e0d",
+    "hash": "73c7f4b9db8e7f3e7aae33bcc39b40a7",
     "packages": [
+        {
+            "name": "matix/core-bundle",
+            "version": "dev-master",
+            "target-dir": "CoreBundle",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:mateusznowak/corebundle.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-11-13 20:33:25"
+        },
+        {
+            "name": "matix/form-bundle",
+            "version": "dev-master",
+            "target-dir": "FormBundle",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:mateusznowak/formbundle.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-11-13 20:45:31"
+        },
+        {
+            "name": "matix/pdo-bundle",
+            "version": "dev-master",
+            "target-dir": "PDOBundle",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:mateusznowak/pdobundle.git",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2013-11-13 20:46:16"
+        },
         {
             "name": "monolog/monolog",
             "version": "1.0.2",
@@ -50,17 +86,17 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "dev-master",
+            "version": "v2.3.0",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "1f7cabb841e62ec49615bd965ac780fd994b3f64"
+                "reference": "246b25461b4ea52f8d38ea655ef04b3a02b9c3b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1f7cabb841e62ec49615bd965ac780fd994b3f64",
-                "reference": "1f7cabb841e62ec49615bd965ac780fd994b3f64",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/246b25461b4ea52f8d38ea655ef04b3a02b9c3b4",
+                "reference": "246b25461b4ea52f8d38ea655ef04b3a02b9c3b4",
                 "shasum": ""
             },
             "require": {
@@ -69,7 +105,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -93,7 +129,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-10-17 11:48:11"
+            "time": "2013-05-10 18:12:13"
         }
     ],
     "packages-dev": [
@@ -104,7 +140,9 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/yaml": 20
+        "matix/core-bundle": 20,
+        "matix/form-bundle": 20,
+        "matix/pdo-bundle": 20
     },
     "platform": [
 

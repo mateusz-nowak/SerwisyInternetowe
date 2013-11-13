@@ -6,10 +6,11 @@
 <a class="btn btn-primary btn-sm pull-right" href="/user/blogs/new">Dodaj nowy blog</a>
 
 <div class="clearfix"></div>
-<table class="table table-hover table-blogs">
+<table class="table table-responsive table-blogs">
     <tr>
         <th>Tytuł</th>
         <th>Opis</th>
+        <th>Domena</th>
         <th>Akcje</th>
     </tr>
 <?php foreach ($blogs as $blog) { ?>
@@ -17,8 +18,12 @@
         <td><?php echo $blog->getTitle() ?></td>
         <td><?php echo $blog->getDescription() ?></td>
         <td>
-            <a class="btn btn-info btn-xs" href="/user/blog/<?php echo $blog->getId() ?>/edit"><span class="glyphicon glyphicon-wrench">Edytuj</a>
-            <a class="btn btn-info btn-xs" href="/user/blog/<?php echo $blog->getId() ?>/destroy"><span class="glyphicon glyphicon-trash"></span> Usuń</a>
+            <a href="http://www.logBlog.pl/b/<?php echo $blog->getDomain() ?>">http://www.logBlog.pl/b/<?php echo $blog->getDomain() ?></a>
+        </td>
+        <td>
+            <a class="btn btn-success btn-xs" href="/user/blog/<?php echo $blog->getId() ?>/manage"><span class="glyphicon glyphicon-wrench"></span> <strong>Zarządzaj</strong></a>
+            <a class="btn btn-info btn-xs" href="/user/blog/<?php echo $blog->getId() ?>/edit"><span class="glyphicon glyphicon-wrench"></span> Edytuj</a>
+            <a class="btn btn-info btn-xs" href="/user/blog/<?php echo $blog->getId() ?>/destroy"><span class="glyphicon glyphicon-trash"></span>  Usuń</a>
         </td>
     </tr>
 <?php } ?>

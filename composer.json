@@ -1,15 +1,59 @@
 {
     "require": {
         "monolog/monolog": "1.0.*",
-        "symfony/yaml": "dev-master"
+        "symfony/yaml": "2.3",
+        "matix/core-bundle": "dev-master",
+        "matix/form-bundle": "dev-master",
+        "matix/pdo-bundle": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "matix/core-bundle",
+                "version": "dev-master",
+                "source": {
+                    "url": "git@bitbucket.org:mateusznowak/corebundle.git",
+                    "type": "git",
+                    "reference": "master"
+                },
+                "target-dir" : "CoreBundle"
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "matix/form-bundle",
+                "version": "dev-master",
+                "source": {
+                    "url": "git@bitbucket.org:mateusznowak/formbundle.git",
+                    "type": "git",
+                    "reference": "master"
+                },
+                "target-dir" : "FormBundle"
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "matix/pdo-bundle",
+                "version": "dev-master",
+                "source": {
+                    "url": "git@bitbucket.org:mateusznowak/pdobundle.git",
+                    "type": "git",
+                    "reference": "master"
+                },
+                "target-dir" : "PDOBundle"
+            }
+        }
+    ],
     "autoload": {
         "psr-0": {
-            "SiBundle\\": "src/",
-            "BlogBundle\\": "src/",
-            "FormBundle\\": "src/",
-            "AuthBundle\\": "src/",
-            "PDOBundle\\": "src/"
+            "Bootstrap\\": "app/",
+            "CoreBundle\\": "vendor/matix/core-bundle/",
+            "PDOBundle\\": "vendor/matix/pdo-bundle/",
+            "FormBundle\\": "vendor/matix/form-bundle/",
+            "": "src/"
         }
     }
 }

@@ -3,6 +3,7 @@ user.heading.login: 'Logowanie'
 user.heading.register: 'Rejestracja'
 user.heading.blogs: 'Zarządzaj swoimi blogami'
 user.heading.blogs.new: 'Założ bloga'
+user.heading.manager: 'Zarządzaj blogiem'
 
 flash.user.logged_out: 'Wylogowano.'
 flash.user.logged_in: 'Zostałeś zalogowany.'

@@ -1,0 +1,5 @@
+db.type: mysql
+db.host: localhost
+db.user: root
+db.password: 5qrnaq3
+db.database: si_devel
