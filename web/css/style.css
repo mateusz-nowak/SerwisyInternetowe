@@ -16,9 +16,9 @@
 }
 
 .mobile-menu-container .nav {
-    background: #eee;
     padding: 5px;
     display: none;
+    margin-bottom: 10px;
 }
 
 .icon-menu {

@@ -277,8 +277,8 @@ try {
 } catch (Exception404 $e) {
     $template = $container->get('template');
     
-    echo $template->render('src/SiBundle/Views/error/error.html', array(
+    echo $template->render('app/Bootstrap/Views/error/error.html', array(
         'e' => $e,
-        'title' => '404'
+        'title' => '[404]'
     ));
 }
