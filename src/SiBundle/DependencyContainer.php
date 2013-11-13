@@ -106,7 +106,7 @@ class DependencyContainer
     protected function definePdoConnection()
     {
         return new PDOClient(
-            'mysql', 'sql3.freemysqlhosting.net', 3306, 'sql322548', 'dX5%lZ8!', 'sql322548'
+            'mysql', 'localhost', 3306, 'root', '5qrnaq3', 'si_devel'
         );
     }
 
