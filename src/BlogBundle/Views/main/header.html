@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title><?php echo $title ?></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
+</head>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <a href="/">
+            <span class="navbar-brand">
+                logBlog.pl
+                <small>platforma blogowa</small>
+            </span>
+        </a>
+        <ul class="nav navbar-nav">
+            
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <h3><span class="glyphicon glyphicon-arrow-right"></span> Autoryzacja</h3>
+<?php if ($app['user']) { ?>
+            <p>
+              Zalogowany jako: <strong><?php echo $app['user']->getFullName() ?></strong>
+            </p>
+            <ul class="nav nav-stacked">
+                <li>
+                    <a href="/user/blogs"><span class="glyphicon glyphicon-user"></span> Zarządzaj blogami</a>
+                </li>
+                <li>
+                    <a href="/session/destroy"><span class="glyphicon glyphicon-book"></span> Wyloguj</a>
+                </li>
+            </ul>
+<?php } else { ?>
+            <ul class="nav nav-stacked">
+                <li>
+                    <a href="/session/new"><span class="glyphicon glyphicon-user"></span> Logowanie</a>
+                </li>
+                <li>
+                    <a href="/user/new"><span class="glyphicon glyphicon-book"></span> Rejestracja</a>
+                </li>
+            </ul>
+<?php } ?>
+            <h3><span class="glyphicon glyphicon-arrow-right"></span> Top użytkownicy</h3>
+            <ul class="list-group">
+                <li class="list-group-item">Mateusz Nowak</li>
+                <li class="list-group-item">Jonasz Kitowski</li>
+                <li class="list-group-item">Mateusz Nowak</li>
+                <li class="list-group-item">Jonasz Kitowski</li>
+                <li class="list-group-item">Mateusz Nowak</li>
+            </ul>
+            
+            <h3><span class="glyphicon glyphicon-arrow-right"></span> Top blogi</h3>
+            <ul class="list-group">
+                <li class="list-group-item">Mateusz Nowak</li>
+                <li class="list-group-item">Jonasz Kitowski</li>
+                <li class="list-group-item">Mateusz Nowak</li>
+                <li class="list-group-item">Jonasz Kitowski</li>
+                <li class="list-group-item">Mateusz Nowak</li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <?php if ($notice = $app['security.context']->getFlash('notice')) { ?>
+                <div class="alert alert-success"><?php echo $notice; ?></div>
+            <?php } ?>

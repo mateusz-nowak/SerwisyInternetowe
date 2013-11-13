@@ -1,0 +1,49 @@
+<?php echo $this->render('src/BlogBundle/Views/main/header.html', array(
+    'title' => $title
+))?>
+
+<h1>Logowanie <small>nie bądź anonimowy</small></h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <?php if (count($form->getErrors()) > 0) { ?>
+            <div class="alert alert-danger">
+                <p class="form-validation-error-label">Wystąpiły błędy <small>podczas walidacji formularza</small></p>
+                <ol>
+                    <?php foreach ($form->getErrors() as $field => $messageFail) { ?>
+                        <li><?php echo $messageFail ?></li>
+                    <?php } ?>
+                </ol>
+            </div>
+        <?php } ?>
+
+        <form class="form-horizontal" method="post" action="/session">
+            <div class="form-group">
+                <label for="" class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-10">
+                    <input type="email" class="form-control" name="email" value="<?php echo $form->getValue('email') ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-lg-2 control-label">Hasło</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" name="password" value="<?php echo $form->getValue('password') ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-default">Zaloguj</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <p>
+            Jeżeli posiadasz konto w serwisie, możesz zalogować się przez ten formularz. Jeżeli nie posiadasz konta, musisz takie założyć. W tym celu kliknij przycisk zarejestruj się.
+        </p>    
+        <a href="/user/new" class="btn btn-primary btn-sm pull-right">Zarejestruj się</a>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<?php echo $this->render('src/BlogBundle/Views/main/footer.html') ?>

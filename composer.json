@@ -1,11 +1,15 @@
 {
     "require": {
-        "monolog/monolog": "1.0.*"
+        "monolog/monolog": "1.0.*",
+        "symfony/yaml": "dev-master"
     },
     "autoload": {
         "psr-0": {
             "SiBundle\\": "src/",
-            "BlogBundle\\": "src/"
+            "BlogBundle\\": "src/",
+            "FormBundle\\": "src/",
+            "AuthBundle\\": "src/",
+            "PDOBundle\\": "src/"
         }
     }
 }

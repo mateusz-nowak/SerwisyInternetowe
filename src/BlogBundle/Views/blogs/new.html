@@ -1,0 +1,38 @@
+<?php echo $this->render('src/BlogBundle/Views/main/header.html', array(
+    'title' => $title
+))?>
+
+<h1>Nowy blog <small>...i wypowiadaj się do woli</small></h1>
+
+<?php if (count($form->getErrors()) > 0) { ?>
+    <div class="alert alert-danger">
+        <p class="form-validation-error-label">Wystąpiły błędy <small>podczas walidacji formularza</small></p>
+        <ol>
+            <?php foreach ($form->getErrors() as $field => $messageFail) { ?>
+                <li><?php echo $messageFail ?></li>
+            <?php } ?>
+        </ol>
+    </div>
+<?php } ?>
+
+<form class="form-horizontal" method="post" action="/user/blogs">
+    <div class="form-group">
+        <label for="" class="col-lg-2 control-label">Tytuł</label>
+        <div class="col-lg-10">
+            <input type="text" class="form-control" name="title" value="<?php echo $form->getValue('title') ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="" class="col-lg-2 control-label">Opis</label>
+        <div class="col-lg-10">
+            <input type="text" class="form-control" name="description" value="<?php echo $form->getValue('description') ?>">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <button type="submit" class="btn btn-default">Załóż</button>
+        </div>
+    </div>
+</form>
+
+<?php echo $this->render('src/BlogBundle/Views/main/footer.html') ?>

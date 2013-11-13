@@ -35,7 +35,7 @@ class Bootstrap
     public function run()
     {
         if (!$this->responseClosure) {
-            throw new \RuntimeException('No route found');
+            throw new Exception404('No route found');
         }
 
         echo $this->responseClosure;

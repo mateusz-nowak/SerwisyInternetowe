@@ -1,0 +1,20 @@
+<?php echo $this->render('src/BlogBundle/Views/main/header.html', array(
+    'title' => $title
+))?>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="/img/blog.png" alt="Blog" />
+        </div>
+        <div class="col-md-9">
+            <h2>logBlog.pl <small> założ szybko bloga...</small></h2>
+            <p>
+                Tylko u nas założysz bloga w mniej niż 5 minut! Wystarczy tylko założyć nowe konto (zarejestrować się), stworzyć nowego bloga i już!
+            </p>
+            <a href="/user/new" class="btn btn-primary pull-right">Założ nowe konto</a>
+        </div>
+    </div>
+</div>
+
+<?php echo $this->render('src/BlogBundle/Views/main/footer.html') ?>

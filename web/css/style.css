@@ -1,5 +1,29 @@
-/* Stylesheets to be defined in here */
+.table-blogs {
+    margin-top: 20px;
+}
 
-body {
-    
+.navbar-color-fixed {
+    color: #fff !important;
+    font-size: 12px;
+}
+
+.form-validation-error-label {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    padding-bottom: 15px;
+}
+
+.form-column-domain {
+    padding: 0;
+    margin: 0;
+}
+
+.form-column-domain-label {
+    line-height: 40px;
+}
+
+.caps {
+    text-transform: uppercase;
 }

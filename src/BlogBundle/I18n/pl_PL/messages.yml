@@ -1,0 +1,12 @@
+user.heading.main: 'Darmowe blogi - założ swojego bloga za darmo!'
+user.heading.login: 'Logowanie'
+user.heading.register: 'Rejestracja'
+user.heading.blogs: 'Zarządzaj swoimi blogami'
+user.heading.blogs.new: 'Założ bloga'
+
+flash.user.logged_out: 'Wylogowano.'
+flash.user.logged_in: 'Zostałeś zalogowany.'
+
+flash.blog.edited_success: 'Blog został zedytowany'
+flash.blog.created_success: 'Założyłeś poprawnie bloga'
+flash.blog.deleted_success: 'Blog został usunięty'

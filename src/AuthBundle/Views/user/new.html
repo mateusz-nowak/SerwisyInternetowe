@@ -1,0 +1,69 @@
+<?php echo $this->render('src/BlogBundle/Views/main/header.html', array(
+    'title' => $title
+))?>
+
+<h1>Zarejestruj się <small>aby móc założyć bloga</small></h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <?php if (count($form->getErrors()) > 0) { ?>
+            <div class="alert alert-danger">
+                <p class="form-validation-error-label">Wystąpiły błędy <small>podczas walidacji formularza</small></p>
+                <ol>
+                    <?php foreach ($form->getErrors() as $field => $messageFail) { ?>
+                        <li><?php echo $messageFail ?></li>
+                    <?php } ?>
+                </ol>
+            </div>
+        <?php } ?>
+
+        <form class="form-horizontal" method="post" action="/user">
+            <h5>Dane do logowania <small>wymagane do zalogowania</small></h5>
+            <div class="form-group">
+                <label for="" class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-10">
+                    <input type="email" class="form-control" name="email" value="<?php echo $form->getValue('email') ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-lg-2 control-label">Hasło</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" name="password" value="<?php echo $form->getValue('password') ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-lg-2 control-label">Potwórz hasło</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" name="repeatPassword" value="<?php echo $form->getValue('repeatPassword') ?>">
+                </div>
+            </div>
+            <h5>Dane personalne <small>abyśmy wiedzieli, jak się do Ciebie zwracać</small></h5>
+            <div class="form-group">
+                <label for="" class="col-lg-2 control-label">Imię</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" name="name" value="<?php echo $form->getValue('name') ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-lg-2 control-label">Nazwisko</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" name="surname" value="<?php echo $form->getValue('surname') ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-default">Zarejestruj</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <p>
+            Jeżeli nie posiadasz konta, musisz takie założyć. Jeżeli jednak posiadasz konto, możesz już się zalogować, pomijając ten krok i klikając w przycisk poniżej:
+        </p>    
+        <a href="/session/new" class="btn btn-primary btn-sm pull-right">Zaloguj się</a>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<?php echo $this->render('src/BlogBundle/Views/main/footer.html') ?>
