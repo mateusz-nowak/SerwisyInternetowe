@@ -7,9 +7,9 @@ use PDOBundle\Service\Client as PDOClient;
 class UserManager
 {
     const TABLE = 'User';
-    
+
     protected $pdoClient;
-    
+
     public function __construct(PDOClient $pdoClient)
     {
         $this->pdoClient = $pdoClient;
@@ -25,7 +25,7 @@ class UserManager
             'createdAt' => $user->getCreatedAt()->format('Y-m-d G:i:s')
         ));
     }
-    
+
     public function findOneById($id)
     {
         $user = $this->pdoClient->map(
@@ -33,10 +33,10 @@ class UserManager
             'AuthBundle\Entity\User',
             PDOClient::FETCH_SINGLE
         );
-        
+
         return $user;
     }
-    
+
     public function findOneByEmail($email)
     {
         $user = $this->pdoClient->map(
@@ -44,7 +44,7 @@ class UserManager
             'AuthBundle\Entity\User',
             PDOClient::FETCH_SINGLE
         );
-        
+
         return $user;
     }
 }

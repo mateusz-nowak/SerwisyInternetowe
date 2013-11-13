@@ -40,69 +40,69 @@ class DependencyContainer
         $this->shareContainer('session', new Session);
         $this->shareContainer('dispatcher', $this->registerEventListeners());
         $this->shareContainer('pdo.manager', $this->definePdoConnection());
-        
+
         $this->shareContainer('user.manager', new UserManager(
             $this->get('pdo.manager')
         ));
-        
+
         $this->shareContainer('blog.manager', new BlogManager(
             $this->get('pdo.manager')
         ));
-        
+
         $this->shareContainer('security.context', new SecurityContext(
             $this->get('user.manager'),
             $this->get('session'))
         );
-        
+
         $this->shareContainer('template', new Template(
             $this->get('security.context')
         ));
-        
+
         $this->shareContainer('request', new Request);
-        
+
         $this->shareContainer('i18n',
             $this->defineI18nTranslation()
         );
-        
+
         // Forms
         $this->shareContainer('form.register', new RegisterForm($this->get('user.manager')));
         $this->shareContainer('form.login', new LoginForm($this->get('user.manager')));
         $this->shareContainer('form.blogs.new', new BlogCreateForm($this->get('user.manager')));
     }
-    
+
     protected function defineI18nTranslation()
     {
         $i18n = new I18n();
-        
+
         $i18n->registerTranslation(
             '../src/BlogBundle/I18n/pl_PL/messages.yml'
         );
-        
+
         return $i18n;
     }
-    
+
     protected function registerEventListeners()
-    {   
+    {
         $dispatcher = new Dispatcher;
 
         $dispatcher->registerEventListener(
             $this->createNewInstanceWithContainerAware(new \AuthBundle\EventListener\Auth)
         );
-        
+
         $dispatcher->registerEventListener(
             $this->createNewInstanceWithContainerAware(new \BlogBundle\EventListener\Blog)
         );
-        
+
         return $dispatcher;
     }
-    
+
     protected function createNewInstanceWithContainerAware($class)
     {
         $class->setContainer($this);
-        
+
         return $class;
     }
-    
+
     protected function definePdoConnection()
     {
         return new PDOClient(

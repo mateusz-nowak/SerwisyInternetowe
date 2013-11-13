@@ -35,30 +35,30 @@ abstract class Form
     {
         $this->data = $data;
     }
-    
+
     public function getData()
     {
         return (array) $this->data;
     }
-    
+
     public function getValue($fieldName)
     {
         if (array_key_exists($fieldName, $this->getData())) {
             return (string) $this->data[$fieldName];
         }
-        
+
         return '';
     }
-    
+
     public function getErrorForField($fieldName)
     {
         $error = $this->getErrors();
-        
+
         if (array_key_exists($fieldName, $error)) {
             return $error[$fieldName];
         }
     }
-    
+
     public function getErrors()
     {
         return $this->constraints->getErrors();

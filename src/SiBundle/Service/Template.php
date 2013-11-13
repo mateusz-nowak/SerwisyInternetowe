@@ -7,7 +7,7 @@ use AuthBundle\Service\SecurityContext;
 class Template
 {
     protected $securityContext;
-    
+
     public function __construct(SecurityContext $securityContext)
     {
         $this->securityContext = $securityContext;
@@ -25,12 +25,12 @@ class Template
                 $src
             ));
         }
-        
+
         $arguments['app'] = array(
             'user' => $this->securityContext->getUser(),
             'security.context' => $this->securityContext,
         );
-        
+
         extract($arguments);
         include_once $src;
 

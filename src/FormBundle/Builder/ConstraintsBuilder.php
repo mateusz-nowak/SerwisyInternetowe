@@ -11,7 +11,7 @@ class ConstraintsBuilder implements Countable
 {
     /* @var \FormBundle\Abstracts\Form $form */
     protected $form;
-    
+
     /* @var array $errors */
     protected $errors;
 
@@ -28,7 +28,7 @@ class ConstraintsBuilder implements Countable
         if ($closure($formData[$fieldName])) {
             return;
         }
-        
+
         $this->errors[$fieldName] = $messageFail;
     }
 
@@ -36,7 +36,7 @@ class ConstraintsBuilder implements Countable
     {
         return count($this->errors);
     }
-    
+
     public function getErrors()
     {
         return $this->errors;

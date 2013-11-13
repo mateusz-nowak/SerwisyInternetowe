@@ -15,7 +15,7 @@ class Request
         $this->post = $_POST;
         $this->get = $_GET;
     }
-    
+
     public function redirect($url)
     {
         header('Location: ' . $url);
