@@ -39,7 +39,7 @@ class Register extends Form
 
         $this->constraints->add('name', function($value) {
            return strlen($value) >= 2;
-        }, 'Podaj swoje imię.');
+        }, 'Podaj swoje imię.');        
         //
         // $this->constraints->add('surname', function($value) {
         //    return strlen($value) >= 2;

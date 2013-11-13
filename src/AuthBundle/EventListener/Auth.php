@@ -3,7 +3,7 @@
 namespace AuthBundle\EventListener;
 
 use AuthBundle\Event\Auth as EventAuth;
-use SiBundle\ContainerAware;
+use CoreBundle\ContainerAware;
 use AuthBundle\Entity\User;
 use AuthBundle\Form\Register as RegisterForm;
 
@@ -15,7 +15,18 @@ class Auth extends ContainerAware
             EventAuth::IS_LOGGED => array($this, 'isLoggedEvent'),
             EventAuth::IS_REGISTERED => array($this, 'isRegisteredEvent'),
             EventAuth::IS_LOGGED_OUT => array($this, 'isLoggedOutEvent'),
+            EventAuth::CHECK_AUTHENTICATION => array($this, 'checkAuthEvent')
         );
+    }
+    
+    public function checkAuthEvent()
+    {
+        $securityContext = $this->getContainer()->get('security.context');
+        $request = $this->getContainer()->get('request');
+        
+        if (FALSE === $securityContext->getUser()) {
+            return $request->redirect('/session/new');
+        }
     }
 
     public function isLoggedOutEvent()

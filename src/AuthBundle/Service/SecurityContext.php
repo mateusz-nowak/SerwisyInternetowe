@@ -4,7 +4,7 @@ namespace AuthBundle\Service;
 
 use AuthBundle\Entity\UserManager;
 use AuthBundle\Entity\User;
-use SiBundle\Session;
+use CoreBundle\Session;
 
 class SecurityContext
 {

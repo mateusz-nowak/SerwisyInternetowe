@@ -18,4 +18,9 @@ class Auth
      * Is triggered when user log out.
     */
     const IS_LOGGED_OUT = 'is_logged_out';
+    
+    /**
+     * Is triggered when page needs to be when user is logged in.
+    **/
+    const CHECK_AUTHENTICATION = 'check_authentication';
 }

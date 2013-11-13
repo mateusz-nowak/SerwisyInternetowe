@@ -19,8 +19,30 @@
     </div>
 </nav>
 <div class="container">
+    <div class="mobile-menu-container hidden-lg hidden-md">
+        <span class="glyphicon glyphicon-th icon-menu pull-right"></span>
+        <div class="clearfix"></div>
+        <ul class="nav nav-stacked">
+            <?php if (!$app['user']) { ?>
+                <li>
+                    <a href="/session/new"><span class="glyphicon glyphicon-user"></span> Logowanie</a>
+                </li>
+                <li>
+                    <a href="/user/new"><span class="glyphicon glyphicon-book"></span> Rejestracja</a>
+                </li>
+            <?php } else { ?>
+                <li>
+                    <a href="/user/blogs"><span class="glyphicon glyphicon-user"></span> Zarządzaj blogami</a>
+                </li>
+                <li>
+                    <a href="/session/destroy"><span class="glyphicon glyphicon-book"></span> Wyloguj</a>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+    
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 visible-md visible-lg">
         <h3><span class="glyphicon glyphicon-arrow-right"></span> Autoryzacja</h3>
 <?php if ($app['user']) { ?>
             <p>
@@ -52,7 +74,7 @@
                 <li class="list-group-item">Jonasz Kitowski</li>
                 <li class="list-group-item">Mateusz Nowak</li>
             </ul>
-            
+        
             <h3><span class="glyphicon glyphicon-arrow-right"></span> Top blogi</h3>
             <ul class="list-group">
                 <li class="list-group-item">Mateusz Nowak</li>

@@ -1,0 +1,8 @@
+<?php echo $this->render('src/BlogBundle/Views/main/header.html', array(
+    'title' => $title
+))?>
+
+<h1>Zarządzaj blogiem <small>lista Twoich postów</small></h1>
+<a class="btn btn-primary btn-sm pull-right" href="/user/blog/<?php echo $blog->getId() ?>/manage/new">Dodaj nowy wpis</a>
+
+<?php echo $this->render('src/BlogBundle/Views/main/footer.html') ?>

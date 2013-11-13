@@ -55,6 +55,7 @@ class BlogManager
             'title' => $blog->getTitle(),
             'description' => $blog->getDescription(),
             'user_id' => $blog->getUser()->getId(),
+            'domain' => $blog->getDomain()
         ));
     }
 }

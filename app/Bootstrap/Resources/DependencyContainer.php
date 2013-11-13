@@ -1,40 +1,23 @@
 <?php
 
-namespace SiBundle;
+namespace Bootstrap\Resources;
 
 use BlogBundle\Entity\BlogManager;
 use AuthBundle\Entity\UserManager;
-use SiBundle\Service\Template;
-use SiBundle\Service\Request;
-use SiBundle\Dispatcher;
-use SiBundle\Service\I18n;
-use SiBundle\Session;
+use CoreBundle\Service\Template;
+use CoreBundle\Service\Request;
+use CoreBundle\Dispatcher;
+use CoreBundle\Service\I18n;
+use CoreBundle\Session;
 use PDOBundle\Service\Client as PDOClient;
 use AuthBundle\Form\Register as RegisterForm;
 use BlogBundle\Form\Create as BlogCreateForm;
 use AuthBundle\Form\Login as LoginForm;
 use AuthBundle\Service\SecurityContext;
+use CoreBundle\AbstractDependencyContainerService;
 
-class DependencyContainer
+class DependencyContainer extends AbstractDependencyContainerService
 {
-    /* @var array $container */
-    protected $container;
-
-    public function __construct()
-    {
-        $this->container = array();
-        $this->shareContainers();
-    }
-
-    public function get($containerName)
-    {
-        if (!array_key_exists($containerName, $this->container)) {
-            throw new \RuntimeException(sprintf('Container %s not found.', $containerName));
-        }
-
-        return $this->container[$containerName];
-    }
-
     protected function shareContainers()
     {
         $this->shareContainer('session', new Session);
@@ -106,12 +89,12 @@ class DependencyContainer
     protected function definePdoConnection()
     {
         return new PDOClient(
-            'mysql', 'localhost', 3306, 'root', '5qrnaq3', 'si_devel'
+            $this->getParameter('db.type'),
+            $this->getParameter('db.host'),
+            $this->getParameter('db.port'),
+            $this->getParameter('db.user'),
+            $this->getParameter('db.password'),
+            $this->getParameter('db.database')
         );
-    }
-
-    protected function shareContainer($containerName, $closure)
-    {
-        $this->container[$containerName] = $closure;
     }
 }

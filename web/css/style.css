@@ -15,6 +15,18 @@
     padding-bottom: 15px;
 }
 
+.mobile-menu-container .nav {
+    background: #eee;
+    padding: 5px;
+    display: none;
+}
+
+.icon-menu {
+    font-size: 26px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
 .form-column-domain {
     padding: 0;
     margin: 0;

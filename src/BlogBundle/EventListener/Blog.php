@@ -5,7 +5,7 @@ namespace BlogBundle\EventListener;
 use BlogBundle\Form\Create as BlogForm;
 use BlogBundle\Event\Blog as EventBlog;
 use BlogBundle\Entity\Blog as BlogEntity;
-use SiBundle\ContainerAware;
+use CoreBundle\ContainerAware;
 use BlogBundle\ValueObject\BlogModifier;
 
 class Blog extends ContainerAware
@@ -51,6 +51,7 @@ class Blog extends ContainerAware
         $blog = new BlogEntity();
         $blog->setTitle($data['title']);
         $blog->setDescription($data['description']);
+        $blog->setDomain($data['domain']);
         $blog->setUser($securityContext->getUser());
 
         $this->getContainer()->get('blog.manager')->createBlog($blog);

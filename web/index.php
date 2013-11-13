@@ -1,8 +1,8 @@
 <?php
 
-use SiBundle\Exception404;
-use SiBundle\Bootstrap;
-use SiBundle\DependencyContainer;
+use Bootstrap\Resources\DependencyContainer;
+use CoreBundle\Exception404;
+use CoreBundle\Bootstrap;
 use AuthBundle\Event\Auth as EventAuth;
 use BlogBundle\Event\Blog as EventBlog;
 use BlogBundle\ValueObject\BlogModifier;
@@ -108,9 +108,18 @@ $app->get('/session/destroy', function() use ($container) {
 $app->get('/user/blogs', function() use ($container) {
     $template = $container->get('template');
     $i18n = $container->get('i18n');
+    $request = $container->get('request');
     
     $blogManager = $container->get('blog.manager');
     $securityContext = $container->get('security.context');
+    
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
 
     return $template->render('src/BlogBundle/Views/blogs/index.html', array(
         'title' => $i18n->get('user.heading.blogs'),
@@ -125,6 +134,10 @@ $app->get('/user/blogs/new', function() use ($container) {
     $template = $container->get('template');
     $i18n = $container->get('i18n');
     
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+    
     $form = $container->get('form.blogs.new');
 
     return $template->render('src/BlogBundle/Views/blogs/new.html', array(
@@ -137,6 +150,10 @@ $app->post('/user/blogs', function() use ($container) {
     $template = $container->get('template');
     $i18n = $container->get('i18n');
     $request = $container->get('request');
+    
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
     
     $form = $container->get('form.blogs.new');
     $form->bind($request->post);
@@ -160,6 +177,10 @@ $app->get('/user/blog/(?P<id>\d+)/destroy', function($requestParameters) use ($c
     $i18n = $container->get('i18n');
     $blogManager = $container->get('blog.manager');
     
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+    
     $blog = $blogManager->findOneById($requestParameters['id']);
 
     if ($blog) {
@@ -177,6 +198,10 @@ $app->get('/user/blog/(?P<id>\d+)/edit', function($requestParameters) use ($cont
     $i18n = $container->get('i18n');
     $blogManager = $container->get('blog.manager');
     
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+        
     $blog = $blogManager->findOneById($requestParameters['id']);
     
     if (!$blog) {
@@ -199,6 +224,10 @@ $app->post('/user/blog/(?P<id>\d+)', function($requestParameters) use ($containe
     $i18n = $container->get('i18n');
     $blogManager = $container->get('blog.manager');
     
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+    
     $blog = $blogManager->findOneById($requestParameters['id']);
     
     if (!$blog) {
@@ -219,6 +248,26 @@ $app->post('/user/blog/(?P<id>\d+)', function($requestParameters) use ($containe
     return $template->render('src/BlogBundle/Views/blogs/edit.html', array(
         'title' => $blog->getTitle(),
         'form' => $form,
+        'blog' => $blog
+    ));
+});
+
+/**
+ * User - Manage blog posts.
+**/
+$app->get('/user/blog/(?P<id>\d+)/manage', function($requestParameters) use ($container) {
+    $template = $container->get('template');
+    $i18n = $container->get('i18n');
+    $blogManager = $container->get('blog.manager');
+
+    $blog = $blogManager->findOneById($requestParameters['id']);
+    
+    if (!$blog) {
+        return;
+    }
+
+    return $template->render('src/BlogBundle/Views/blogs/manage/index.html', array(
+        'title' => $i18n->get('user.heading.manager'),
         'blog' => $blog
     ));
 });
