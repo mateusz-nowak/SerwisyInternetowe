@@ -25,6 +25,15 @@ class UserManager
             'createdAt' => $user->getCreatedAt()->format('Y-m-d G:i:s')
         ));
     }
+    
+    public function getLast($limit)
+    {
+        return $this->pdoClient->map(
+            'SELECT * FROM ' . self::TABLE . ' ORDER BY id DESC LIMIT ' . $limit, array(),
+            '\AuthBundle\Entity\User',
+            PDOClient::FETCH_ALL
+        );
+    }
 
     public function findOneById($id)
     {

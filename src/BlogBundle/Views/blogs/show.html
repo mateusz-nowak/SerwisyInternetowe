@@ -1,0 +1,27 @@
+<?php echo $this->render('src/BlogBundle/Views/blogs/header.html', array(
+    'title' => $title
+))?>
+
+<h1><a href="/b/<?php echo $blog->getDomain() ?>"><?php echo $blog->getTitle() ?></a></h1>
+<hr/>
+
+<h3>Wpisów: <?php echo count($posts) ?></h3>
+
+<?php foreach ($posts as $post) { ?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">#<?php echo $post->getId() ?> <?php echo $post->getTitle() ?></h3>
+        </div>
+        <div class="panel-body">
+            <?php echo nl2br($post->getText()) ?>
+        </div>
+        <div class="panel-footer">
+            <span class="pull-right"><?php echo $post->getCreatedAt() ?></span>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+<?php } ?>
+
+<?php echo $this->render('src/BlogBundle/Views/blogs/footer.html', array(
+    'blog' => $blog
+)) ?>

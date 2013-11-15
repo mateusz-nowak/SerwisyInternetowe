@@ -2,6 +2,10 @@
     'title' => $title
 ))?>
 
+<?php echo $this->render('src/BlogBundle/Views/breadcrumb.html', array(
+    'breadcrumb' => $breadcrumb
+))?>
+
 <h1>Edycja bloga <small>aby bardziej dokładnie określić swój blog</small></h1>
 
 <?php if (count($form->getErrors()) > 0) { ?>

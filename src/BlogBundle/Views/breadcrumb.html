@@ -1,0 +1,5 @@
+<ol class="breadcrumb">
+<?php foreach ($breadcrumb->getNodes() as $breadcrumbItem) { ?>
+    <li><a href="<?php echo $breadcrumbItem->getUrl() ?>"><?php echo $breadcrumbItem->getTitle() ?></a></li>
+<?php } ?>
+</ol>

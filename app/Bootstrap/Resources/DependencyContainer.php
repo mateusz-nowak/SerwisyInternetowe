@@ -2,7 +2,9 @@
 
 namespace Bootstrap\Resources;
 
+use BlogBundle\Model\Breadcrumb;
 use BlogBundle\Entity\BlogManager;
+use BlogBundle\Entity\PostManager;
 use AuthBundle\Entity\UserManager;
 use CoreBundle\Service\Template;
 use CoreBundle\Service\Request;
@@ -12,6 +14,7 @@ use CoreBundle\Session;
 use PDOBundle\Service\Client as PDOClient;
 use AuthBundle\Form\Register as RegisterForm;
 use BlogBundle\Form\Create as BlogCreateForm;
+use BlogBundle\Form\Post as BlogPostForm;
 use AuthBundle\Form\Login as LoginForm;
 use AuthBundle\Service\SecurityContext;
 use CoreBundle\AbstractDependencyContainerService;
@@ -31,6 +34,10 @@ class DependencyContainer extends AbstractDependencyContainerService
         $this->shareContainer('blog.manager', new BlogManager(
             $this->get('pdo.manager')
         ));
+        
+        $this->shareContainer('post.manager', new PostManager(
+            $this->get('pdo.manager')
+        ));
 
         $this->shareContainer('security.context', new SecurityContext(
             $this->get('user.manager'),
@@ -46,11 +53,14 @@ class DependencyContainer extends AbstractDependencyContainerService
         $this->shareContainer('i18n',
             $this->defineI18nTranslation()
         );
+        
+        $this->shareContainer('breadcrumb', new Breadcrumb);
 
         // Forms
         $this->shareContainer('form.register', new RegisterForm($this->get('user.manager')));
         $this->shareContainer('form.login', new LoginForm($this->get('user.manager')));
         $this->shareContainer('form.blogs.new', new BlogCreateForm($this->get('user.manager')));
+        $this->shareContainer('form.blog.posts.new', new BlogPostForm($this->get('user.manager')));
     }
 
     protected function defineI18nTranslation()

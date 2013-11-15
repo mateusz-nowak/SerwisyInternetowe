@@ -25,6 +25,24 @@ class BlogManager
             PDOClient::FETCH_ALL
         );
     }
+    
+    public function findOneByDomain($domain)
+    {
+        return $this->pdoClient->map(
+            'SELECT * FROM ' . self::TABLE . ' WHERE domain = ?', array($domain),
+            '\BlogBundle\Entity\Blog',
+            PDOClient::FETCH_SINGLE
+        );
+    }
+    
+    public function getLast($limit)
+    {
+        return $this->pdoClient->map(
+            'SELECT * FROM ' . self::TABLE . ' ORDER BY id DESC LIMIT ' . $limit, array(),
+            '\BlogBundle\Entity\Blog',
+            PDOClient::FETCH_ALL
+        );
+    }
 
     public function edit(BlogModifier $modifier)
     {

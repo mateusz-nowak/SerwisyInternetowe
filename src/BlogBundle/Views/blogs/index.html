@@ -18,7 +18,7 @@
         <td><?php echo $blog->getTitle() ?></td>
         <td><?php echo $blog->getDescription() ?></td>
         <td>
-            <a href="http://www.logBlog.pl/b/<?php echo $blog->getDomain() ?>">http://www.logBlog.pl/b/<?php echo $blog->getDomain() ?></a>
+            <a href="/b/<?php echo $blog->getDomain() ?>">http://www.logBlog.pl/b/<?php echo $blog->getDomain() ?></a>
         </td>
         <td>
             <a class="btn btn-success btn-xs" href="/user/blog/<?php echo $blog->getId() ?>/manage"><span class="glyphicon glyphicon-wrench"></span> <strong>Zarządzaj</strong></a>

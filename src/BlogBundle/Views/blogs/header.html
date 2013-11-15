@@ -44,44 +44,6 @@
     </div>
     
     <div class="row">
-      <div class="col-md-3 visible-md visible-lg">
-        <h3><span class="glyphicon glyphicon-arrow-right"></span> Autoryzacja</h3>
-<?php if ($app['user']) { ?>
-            <p>
-              Zalogowany jako: <strong><?php echo $app['user']->getFullName() ?></strong>
-            </p>
-            <ul class="nav nav-stacked">
-                <li>
-                    <a href="/user/blogs"><span class="glyphicon glyphicon-user"></span> Zarządzaj blogami</a>
-                </li>
-                <li>
-                    <a href="/session/destroy"><span class="glyphicon glyphicon-book"></span> Wyloguj</a>
-                </li>
-            </ul>
-<?php } else { ?>
-            <ul class="nav nav-stacked">
-                <li>
-                    <a href="/session/new"><span class="glyphicon glyphicon-user"></span> Logowanie</a>
-                </li>
-                <li>
-                    <a href="/user/new"><span class="glyphicon glyphicon-book"></span> Rejestracja</a>
-                </li>
-            </ul>
-<?php } ?>
-            <h3><span class="glyphicon glyphicon-arrow-right"></span> Nowi użytkownicy</h3>
-            <ul class="list-group">
-<?php foreach ($latestUsers as $user) { ?>
-                <li class="list-group-item"><?php echo $user->getFullname() ?></li>
-<?php } ?>
-            </ul>
-        
-            <h3><span class="glyphicon glyphicon-arrow-right"></span> Nowe blogi</h3>
-            <ul class="list-group">
-<?php foreach ($latestBlog as $blog) { ?>
-                <li class="list-group-item"><a href="/b/<?php echo $blog->getDomain() ?>"><?php echo $blog->getTitle() ?></a></li>
-<?php } ?>
-            </ul>
-        </div>
         <div class="col-md-9">
             <?php if ($notice = $app['security.context']->getFlash('notice')) { ?>
                 <div class="alert alert-success"><?php echo $notice; ?></div>

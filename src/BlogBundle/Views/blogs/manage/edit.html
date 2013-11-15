@@ -6,7 +6,7 @@
     'breadcrumb' => $breadcrumb
 ))?>
 
-<h1>Nowy blog <small>...i wypowiadaj się do woli</small></h1>
+<h1>Edytuj post <small>...czy coś chcesz zmienić?</small></h1>
 
 <?php if (count($form->getErrors()) > 0) { ?>
     <div class="alert alert-danger">
@@ -19,35 +19,22 @@
     </div>
 <?php } ?>
 
-<form class="form-horizontal" method="post" action="/user/blogs">
+<form class="form-horizontal" method="post" action="/user/blog/<?php echo $blog->getId() ?>/post/<?php echo $post->getId() ?>">
     <div class="form-group">
-        <label for="" class="col-lg-2 control-label">Tytuł</label>
+        <label for="" class="col-lg-2 control-label">Tytuł wpisu</label>
         <div class="col-lg-10">
             <input type="text" class="form-control" name="title" value="<?php echo $form->getValue('title') ?>">
         </div>
     </div>
     <div class="form-group">
-        <label for="" class="col-lg-2 control-label">Opis</label>
+        <label for="" class="col-lg-2 control-label">Treść wpisu</label>
         <div class="col-lg-10">
-            <input type="text" class="form-control" name="description" value="<?php echo $form->getValue('description') ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="" class="col-lg-2 control-label">Domena</label>
-        <div class="col-md-10">
-            <div class="row">
-                <div class="col-md-3 form-column-domain-label">
-                    http://www.logBlog.pl/b/
-                </div>
-                <div class="col-md-3 form-column-domain">
-                    <input type="text" class="form-control" name="domain" value="<?php echo $form->getValue('domain') ?>">
-                </div>
-            </div>
+            <textarea class="form-control" name="text" rows="5"><?php echo $form->getValue('text') ?></textarea>
         </div>
     </div>
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-10">
-            <button type="submit" class="btn btn-default">Załóż</button>
+            <button type="submit" class="btn btn-default">Modyfikuj</button>
         </div>
     </div>
 </form>

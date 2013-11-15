@@ -6,12 +6,28 @@ use CoreBundle\Bootstrap;
 use AuthBundle\Event\Auth as EventAuth;
 use BlogBundle\Event\Blog as EventBlog;
 use BlogBundle\ValueObject\BlogModifier;
+use BlogBundle\ValueObject\PostModifier;
+use BlogBundle\Event\PostEvent;
 
 include_once '../vendor/autoload.php';
 
 $app = new Bootstrap();
 $container = new DependencyContainer();
 
+/**
+ * Executes before some response is given.
+**/
+
+$template = $container->get('template');
+$blogManager = $container->get('blog.manager');
+$userManager = $container->get('user.manager');
+
+$template->setAttribute('latestBlog', $blogManager->getLast(10));
+$template->setAttribute('latestUsers', $userManager->getLast(10));
+
+/**
+ * Homepage.
+**/
 $app->get('/', function() use ($container) {
     $template = $container->get('template');
     $i18n = $container->get('i18n');
@@ -134,6 +150,10 @@ $app->get('/user/blogs/new', function() use ($container) {
     $template = $container->get('template');
     $i18n = $container->get('i18n');
     
+    $breadcrumb = $container->get('breadcrumb');
+    $breadcrumb->attach('/user/blogs', $i18n->get('title.user.blogs'));
+    $breadcrumb->attach('/user/blogs/new', $i18n->get('title.user.blogs.new'));
+    
     $container
         ->get('dispatcher')
         ->trigger(EventAuth::CHECK_AUTHENTICATION);
@@ -142,7 +162,8 @@ $app->get('/user/blogs/new', function() use ($container) {
 
     return $template->render('src/BlogBundle/Views/blogs/new.html', array(
         'title' => $i18n->get('user.heading.blogs.new'),
-        'form' => $form
+        'form' => $form,
+        'breadcrumb' => $breadcrumb
     ));
 });
 
@@ -207,6 +228,10 @@ $app->get('/user/blog/(?P<id>\d+)/edit', function($requestParameters) use ($cont
     if (!$blog) {
         return;
     }
+
+    $breadcrumb = $container->get('breadcrumb');
+    $breadcrumb->attach('/user/blogs', $i18n->get('title.user.blogs'));
+    $breadcrumb->attach('/user/blog/' . $blog->getId() . '/edit', $i18n->get('title.user.blogs.edit'));
     
     $form = $container->get('form.blogs.new');
     $form->bind($blog->toArray());
@@ -214,7 +239,8 @@ $app->get('/user/blog/(?P<id>\d+)/edit', function($requestParameters) use ($cont
     return $template->render('src/BlogBundle/Views/blogs/edit.html', array(
         'title' => $blog->getTitle(),
         'form' => $form,
-        'blog' => $blog
+        'blog' => $blog,
+        'breadcrumb' => $breadcrumb
     ));
 });
 
@@ -258,17 +284,191 @@ $app->post('/user/blog/(?P<id>\d+)', function($requestParameters) use ($containe
 $app->get('/user/blog/(?P<id>\d+)/manage', function($requestParameters) use ($container) {
     $template = $container->get('template');
     $i18n = $container->get('i18n');
+    $postManager = $container->get('post.manager');
     $blogManager = $container->get('blog.manager');
+    
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
 
     $blog = $blogManager->findOneById($requestParameters['id']);
     
     if (!$blog) {
         return;
     }
+    
+    $posts = $postManager->findBlogPosts($blog);
+    
+    $breadcrumb = $container->get('breadcrumb');
+    $breadcrumb->attach('/user/blogs', $i18n->get('title.user.blogs'));
+    $breadcrumb->attach('/user/blog/' . $blog->getId() . '/manage', $blog->getTitle());
 
     return $template->render('src/BlogBundle/Views/blogs/manage/index.html', array(
         'title' => $i18n->get('user.heading.manager'),
+        'blog' => $blog,
+        'posts' => $posts,
+        'breadcrumb' => $breadcrumb
+    ));
+});
+
+/**
+ * User - Add new post to blog
+**/
+$app->get('/user/blog/(?P<id>\d+)/manage/new', function($requestParameters) use ($container) {
+    $template = $container->get('template');
+    $i18n = $container->get('i18n');
+    $blogManager = $container->get('blog.manager');
+    $form = $container->get('form.blog.posts.new');
+    
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+    
+    $blog = $blogManager->findOneById($requestParameters['id']);
+    
+    $breadcrumb = $container->get('breadcrumb');
+    $breadcrumb->attach('/user/blogs', $i18n->get('title.user.blogs'));
+    $breadcrumb->attach('/user/blog/' . $blog->getId() . '/manage', $blog->getTitle());
+    $breadcrumb->attach('/user/blog/' . $blog->getId() . '/manage/new', $i18n->get('title.blogs.posts.new'));
+    
+    return $template->render('src/BlogBundle/Views/blogs/manage/new.html', array(
+        'title' => $i18n->get('user.heading.manager.post.new'),
+        'form' => $form,
+        'blog' => $blog,
+        'breadcrumb' => $breadcrumb
+    ));
+});
+
+$app->get('/user/blog/(?P<blog_id>\d+)/post/(?P<id>\d+)/edit', function($requestParameters) use ($container) {
+    $template = $container->get('template');
+    $i18n = $container->get('i18n');
+    $postManager = $container->get('post.manager');
+    $blogManager = $container->get('blog.manager');
+    $form = $container->get('form.blog.posts.new');
+    
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+    
+    $post = $postManager->findOneById($requestParameters['id']);
+    $blog = $blogManager->findOneById($requestParameters['blog_id']);
+    
+    $form->bind($post->toFormArray());
+    
+    $breadcrumb = $container->get('breadcrumb');
+    $breadcrumb->attach('/user/blogs', $i18n->get('title.user.blogs'));
+    $breadcrumb->attach('/user/blog/' . $blog->getId() . '/manage', $blog->getTitle());
+    $breadcrumb->attach('/user/blog/' . $blog->getId() . '/post/' . $post->getId() .'/edit', $post->getTitle());
+    
+    return $template->render('src/BlogBundle/Views/blogs/manage/edit.html', array(
+        'title' => $i18n->get('user.heading.manager.post.edit'),
+        'form' => $form,
+        'post' => $post,
+        'blog' => $blog,
+        'breadcrumb' => $breadcrumb
+    ));
+});
+
+$app->post('/user/blog/(?P<blog_id>\d+)/post/(?P<id>\d+)', function($requestParameters) use ($container) {
+    $template = $container->get('template');
+    $i18n = $container->get('i18n');
+    $postManager = $container->get('post.manager');
+    $blogManager = $container->get('blog.manager');
+    $form = $container->get('form.blog.posts.new');
+    
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+    
+    $post = $postManager->findOneById($requestParameters['id']);
+    $blog = $blogManager->findOneById($requestParameters['blog_id']);
+    
+    $request = $container->get('request');
+    $form->bind($request->post);
+    
+    $post->setBlog($blog);
+    
+    $postModifier = new PostModifier($post, $form);
+    
+    if ($form->isValid()) {
+        return $container
+            ->get('dispatcher')
+            ->trigger(EventBlog::IS_POST_EDITED, $postModifier);
+    }
+    
+    return $template->render('src/BlogBundle/Views/blogs/manage/edit.html', array(
+        'title' => $i18n->get('user.heading.manager.new'),
+        'form' => $form,
+        'post' => $post,
         'blog' => $blog
+    ));
+});
+
+$app->post('/user/blog/(?P<id>\d+)/manage', function($requestParameters) use ($container) {
+    $template = $container->get('template');
+    $i18n = $container->get('i18n');
+    $blogManager = $container->get('blog.manager');
+    $form = $container->get('form.blog.posts.new');
+    $request = $container->get('request');
+    
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+
+    $blog = $blogManager->findOneById($requestParameters['id']);
+    
+    $form->bind($request->post);
+    
+    if ($form->isValid()) {
+        return $container
+            ->get('dispatcher')
+            ->trigger(EventBlog::IS_NEW_POST_CREATED, 
+                new PostEvent($blog, $form)
+            );
+    }
+    
+    return $template->render('src/BlogBundle/Views/blogs/manage/new.html', array(
+        'title' => $i18n->get('user.heading.manager.new'),
+        'form' => $form,
+        'blog' => $blog
+    ));
+});
+
+
+/**
+ * User - Destroy post in blog
+**/
+$app->get('/user/blog/(?P<blog_id>\d+)/post/(?P<id>\d+)/destroy', function($requestParameters) use ($container) {
+    $i18n = $container->get('i18n');
+    $postManager = $container->get('post.manager');
+    
+    $container
+        ->get('dispatcher')
+        ->trigger(EventAuth::CHECK_AUTHENTICATION);
+
+    $post = $postManager->findOneById($requestParameters['id']);
+
+    if ($post) {
+        $container
+            ->get('dispatcher')
+            ->trigger(EventBlog::IS_POST_DESTROYED, $post);
+    }
+});
+
+/**
+ * Blog - Display blog
+**/
+$app->get('/b/(?P<domain>.*)', function($requestParameters) use ($container, $template) {
+    $blogManager = $container->get('blog.manager');
+    $postManager = $container->get('post.manager');
+    
+    $blog = $blogManager->findOneByDomain($requestParameters['domain']);
+    $posts = $postManager->findBlogPosts($blog);
+    
+    return $template->render('src/BlogBundle/Views/blogs/show.html', array(
+        'title' => $blog->getTitle(),
+        'blog' => $blog,
+        'posts' => $posts
     ));
 });
 
